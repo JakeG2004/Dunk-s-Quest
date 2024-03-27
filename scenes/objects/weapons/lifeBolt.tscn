@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvgsits6nen6k"]
+
+[ext_resource type="Texture2D" uid="uid://c665dkc8f83ru" path="res://assets/weapons/lifebolt.png" id="1_xepi3"]
+
+[sub_resource type="GDScript" id="GDScript_x40c3"]
+script/source = "extends Sprite2D
+
+@onready var HIT_EFFECT = preload(\"res://scenes/effects/lifesteal.tscn\")
+
+var SPEED = 1.5
+
+var DAMAGE = 3
+var KNOCKBACK = 0
+var HEALING = 1
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	await get_tree().create_timer(5).timeout
+	queue_free()
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	position.x += cos(rotation - 1.57) * SPEED
+	position.y += sin(rotation - 1.57) * SPEED
+	
+func init(angle, newPosition):
+	rotation = angle + 1.57
+	position = newPosition
+	
+func _on_area_2d_body_entered(other):
+	if(other.is_in_group(\"enemy\")):
+		other.hit(DAMAGE, KNOCKBACK)
+		
+		var tmpHit = HIT_EFFECT.instantiate()
+		tmpHit.init(global_position)
+		get_parent().add_child(tmpHit)
+		queue_free()
+"
+
+[sub_resource type="Animation" id="Animation_ua3os"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_g8urb"]
+resource_name = "bolt"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hdqmm"]
+_data = {
+"RESET": SubResource("Animation_ua3os"),
+"bolt": SubResource("Animation_g8urb")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7v3fn"]
+size = Vector2(4, 8)
+
+[node name="lifeBolt" type="Sprite2D" groups=["weapon"]]
+texture = ExtResource("1_xepi3")
+hframes = 2
+script = SubResource("GDScript_x40c3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hdqmm")
+}
+autoplay = "bolt"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_7v3fn")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

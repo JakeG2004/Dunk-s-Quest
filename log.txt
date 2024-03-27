@@ -1,0 +1,6 @@
+Thursday, March 18:
+	Started making game
+	Player movement
+	Primary / Secondary attack
+	
+	Total dev time so far: 3 hours

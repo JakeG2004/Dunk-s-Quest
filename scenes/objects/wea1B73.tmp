@@ -1,0 +1,114 @@
+[gd_scene load_steps=7 format=3 uid="uid://c0esliyv3lh8c"]
+
+[ext_resource type="Texture2D" uid="uid://1sxppw74e4jd" path="res://assets/weapons/broadsword.png" id="1_brw6y"]
+[ext_resource type="Script" path="res://scripts/weaponController.gd" id="2_yxhdg"]
+
+[sub_resource type="Animation" id="Animation_p12ik"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../weapon/primaryWeapon:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../weapon/primaryWeapon/Area2D/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_lun11"]
+resource_name = "knight_primary"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../weapon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-0.698132, -0.523599, 0.523599, 0.698132, 0.698132, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../weapon/primaryWeapon:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../weapon/primaryWeapon/Area2D/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_krpas"]
+_data = {
+"RESET": SubResource("Animation_p12ik"),
+"knight_primary": SubResource("Animation_lun11")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u55li"]
+size = Vector2(6, 22)
+
+[node name="weaponController" type="Node2D"]
+script = ExtResource("2_yxhdg")
+
+[node name="weaponAnim" type="AnimationPlayer" parent="."]
+root_node = NodePath("../../playerAnim")
+libraries = {
+"": SubResource("AnimationLibrary_krpas")
+}
+
+[node name="primaryWeapon" type="Sprite2D" parent="."]
+texture = ExtResource("1_brw6y")
+
+[node name="Area2D" type="Area2D" parent="primaryWeapon" groups=["weapon"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="primaryWeapon/Area2D" groups=["weapon"]]
+position = Vector2(-2.38418e-07, 8.9407e-07)
+shape = SubResource("RectangleShape2D_u55li")
+disabled = true
+
+[connection signal="body_entered" from="primaryWeapon/Area2D" to="primaryWeapon" method="_on_body_entered"]

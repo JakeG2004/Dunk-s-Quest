@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://mrb2jr56078y"]
+
+[ext_resource type="Script" path="res://scripts/zombieController.gd" id="1_7ffin"]
+[ext_resource type="Texture2D" uid="uid://cc33kdhyauxmi" path="res://assets/enemies/zombie.png" id="1_31l6r"]
+
+[sub_resource type="Animation" id="Animation_6cxfb"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Zombie:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_b8w2q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Zombie:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2prqy"]
+_data = {
+"RESET": SubResource("Animation_b8w2q"),
+"run": SubResource("Animation_6cxfb")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xlc24"]
+radius = 77.52
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bhac"]
+size = Vector2(14, 16)
+
+[node name="zombie" type="Node2D"]
+script = ExtResource("1_7ffin")
+DAMAGE = null
+SPEED = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2prqy")
+}
+
+[node name="Zombie" type="Sprite2D" parent="."]
+texture = ExtResource("1_31l6r")
+hframes = 8
+
+[node name="detect" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detect"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_xlc24")
+
+[node name="collider" type="Area2D" parent="." groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collider" groups=["enemy"]]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_2bhac")
+
+[connection signal="body_entered" from="detect" to="." method="_on_detect_body_entered"]
+[connection signal="body_exited" from="detect" to="." method="_on_detect_body_exited"]
+[connection signal="body_entered" from="collider" to="." method="_on_collider_body_entered"]

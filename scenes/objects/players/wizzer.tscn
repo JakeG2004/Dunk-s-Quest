@@ -1,0 +1,140 @@
+[gd_scene load_steps=12 format=3 uid="uid://c4wi8smdi7ah0"]
+
+[ext_resource type="Script" path="res://scripts/charactercontroller.gd" id="1_tfmnj"]
+[ext_resource type="Texture2D" uid="uid://3aovpglcnotn" path="res://assets/players/wizzer_girl.png" id="2_vfhht"]
+[ext_resource type="PackedScene" uid="uid://cmu6k1l0537al" path="res://scenes/objects/weapons/wizzerWeapon.tscn" id="3_7xhtf"]
+
+[sub_resource type="Animation" id="Animation_4kvsw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_47jv8"]
+resource_name = "player_idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_80r0u"]
+resource_name = "player_jump"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 4, 5, 8]
+}
+
+[sub_resource type="Animation" id="Animation_lvnrq"]
+resource_name = "player_land"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 5, 4, 0]
+}
+
+[sub_resource type="Animation" id="Animation_80ga8"]
+resource_name = "player_run"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 1, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_sefla"]
+resource_name = "player_squat"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tjq8m"]
+_data = {
+"RESET": SubResource("Animation_4kvsw"),
+"player_idle": SubResource("Animation_47jv8"),
+"player_jump": SubResource("Animation_80r0u"),
+"player_land": SubResource("Animation_lvnrq"),
+"player_run": SubResource("Animation_80ga8"),
+"player_squat": SubResource("Animation_sefla")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kwhyp"]
+size = Vector2(16, 20)
+
+[node name="wizzer" type="CharacterBody2D" groups=["player"]]
+motion_mode = 1
+script = ExtResource("1_tfmnj")
+
+[node name="playerAnim" type="AnimationPlayer" parent="."]
+root_node = NodePath("../charSprite")
+libraries = {
+"": SubResource("AnimationLibrary_tjq8m")
+}
+autoplay = "player_idle"
+
+[node name="playerCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_kwhyp")
+
+[node name="weaponController" parent="." instance=ExtResource("3_7xhtf")]
+
+[node name="charSprite" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_vfhht")
+hframes = 9
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3.345, 3.345)

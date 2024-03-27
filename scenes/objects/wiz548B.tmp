@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmu6k1l0537al"]
+
+[ext_resource type="Script" path="res://scripts/wizzerWeapon.gd" id="1_tryah"]
+[ext_resource type="Texture2D" uid="uid://bawfbabpl6n7l" path="res://assets/weapons/lifeStaff.png" id="2_ianua"]
+[ext_resource type="Texture2D" uid="uid://b1vmqu74f1l5l" path="res://assets/weapons/shield.png" id="3_h4uwk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yc2mf"]
+size = Vector2(8, 26)
+
+[node name="wizzerWeapon" type="Node2D" groups=["weapon"]]
+script = ExtResource("1_tryah")
+
+[node name="weaponAnim" type="AnimationPlayer" parent="."]
+
+[node name="primaryWeapon" type="Sprite2D" parent="."]
+texture = ExtResource("2_ianua")
+
+[node name="secondaryWeapon" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_h4uwk")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="secondaryWeapon"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="secondaryWeapon/StaticBody2D"]
+shape = SubResource("RectangleShape2D_yc2mf")
+disabled = true
