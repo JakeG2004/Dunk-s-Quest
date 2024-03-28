@@ -23,7 +23,6 @@ func _process(_delta):
 #lifesteal
 func primary(angle):
 	secondaryWeapon.hide()
-	secondaryWeapon.scale = Vector2(1, 1)
 	secondaryWeapon.get_node("Area2D/CollisionShape2D").disabled = true
 	
 	primaryWeapon.position = Vector2(cos(angle) * ATTACK_RADIUS, sin(angle) * ATTACK_RADIUS)
@@ -31,14 +30,14 @@ func primary(angle):
 	
 	#FIX THIS PART
 	var tmpBolt = bolt.instantiate()
-	tmpBolt.init(angle, position)
+	tmpBolt.init(angle, get_parent().position)
 	
 	get_parent().get_parent().add_child(tmpBolt)
 	
 	ap.play("primary")
 	
 #AoE
-func secondary(angle):
+func secondary(_angle):
 	ap.play("secondary")
 	
 func _on_area_2d_body_entered(other):

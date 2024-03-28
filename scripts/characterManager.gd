@@ -2,19 +2,19 @@ extends Node2D
 
 @onready var knight = preload("res://scenes/objects/players/knight.tscn")
 @onready var wizzer = preload("res://scenes/objects/players/wizzer.tscn")
+@onready var elf = preload("res://scenes/objects/players/elf.tscn")
 
-var chars = ["Knight", "Wizzer"]
-var charPtr = 1
+var chars = ["Knight", "Wizzer", "Elf"]
+var charPtr = 0
 var currentChar = chars[charPtr]
 var HEALTH = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-
+	add_child(knight.instantiate())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if(Input.is_action_just_pressed("change_char")):
 		changeChar()
 
@@ -36,5 +36,8 @@ func changeChar():
 			
 		"Wizzer":
 			add_child(wizzer.instantiate())
+	
+		"Elf":
+			add_child(elf.instantiate())
 			
 	global_position = oldPos

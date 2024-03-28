@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbmoqqhvnq75g"]
+[gd_scene load_steps=8 format=3 uid="uid://dbmoqqhvnq75g"]
 
 [ext_resource type="Texture2D" uid="uid://ecnvoay0qspq" path="res://assets/tilesets/0x72_DungeonTilesetII_v1.7.png" id="1_gxdbo"]
 [ext_resource type="Texture2D" uid="uid://i21yfmjvkwyx" path="res://assets/tilesets/atlas_floor-16x16.png" id="2_6spob"]
 [ext_resource type="PackedScene" uid="uid://mrb2jr56078y" path="res://scenes/objects/enemies/zombie.tscn" id="4_rofmh"]
 [ext_resource type="PackedScene" uid="uid://bmoqs6g1ce8ad" path="res://scenes/controls/characterManager.tscn" id="4_yv8hp"]
-[ext_resource type="PackedScene" uid="uid://c4wi8smdi7ah0" path="res://scenes/objects/players/wizzer.tscn" id="5_3uepc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gnf57"]
 texture = ExtResource("1_gxdbo")
@@ -2050,6 +2049,8 @@ tile_set = SubResource("TileSet_yaxmc")
 format = 2
 layer_0/tile_data = PackedInt32Array(0, 1, 0, 65536, 1, 0, 131072, 1, 0, 196608, 1, 0, 262144, 1, 0, 327680, 1, 0, 393216, 1, 0, 458752, 1, 0, 524288, 1, 0, 1, 1, 0, 65537, 1, 0, 131073, 1, 0, 196609, 1, 0, 262145, 1, 0, 327681, 1, 0, 393217, 1, 0, 458753, 1, 0, 524289, 1, 0, 2, 1, 0, 65538, 1, 0, 131074, 1, 0, 196610, 1, 0, 262146, 1, 0, 327682, 1, 0, 393218, 1, 0, 458754, 1, 0, 524290, 1, 0, 3, 1, 0, 65539, 1, 0, 131075, 1, 0, 196611, 1, 0, 262147, 1, 0, 327683, 1, 0, 393219, 1, 0, 458755, 1, 0, 524291, 1, 0, 4, 1, 0, 65540, 1, 0, 131076, 1, 0, 196612, 1, 0, 262148, 1, 0, 327684, 1, 0, 393220, 1, 0, 458756, 1, 0, 524292, 1, 0, 5, 1, 0, 65541, 1, 0, 131077, 1, 0, 196613, 1, 0, 262149, 1, 0, 327685, 1, 0, 393221, 1, 0, 458757, 1, 0, 524293, 1, 0, 6, 1, 0, 65542, 1, 0, 131078, 1, 0, 196614, 1, 0, 262150, 1, 0, 327686, 1, 0, 393222, 1, 0, 458758, 1, 0, 524294, 1, 0, 7, 1, 0, 65543, 1, 0, 131079, 1, 0, 196615, 1, 0, 262151, 1, 0, 327687, 1, 0, 393223, 1, 0, 458759, 1, 0, 524295, 1, 0, 8, 1, 0, 65544, 1, 0, 131080, 1, 0, 196616, 1, 0, 262152, 1, 0, 327688, 1, 0, 393224, 1, 0, 458760, 1, 0, 524296, 1, 0, 9, 1, 0, 65545, 1, 0, 131081, 1, 0, 196617, 1, 0, 262153, 1, 0, 327689, 1, 0, 393225, 1, 0, 458761, 1, 0, 524297, 1, 0, 10, 1, 0, 65546, 1, 0, 131082, 1, 0, 196618, 1, 0, 262154, 1, 0, 327690, 1, 0, 393226, 1, 0, 458762, 1, 0, 524298, 1, 0, 11, 1, 0, 65547, 1, 0, 131083, 1, 0, 196619, 1, 0, 262155, 1, 0, 327691, 1, 0, 393227, 1, 0, 458763, 1, 0, 524299, 1, 0, 12, 1, 0, 65548, 1, 0, 131084, 1, 0, 196620, 1, 0, 262156, 1, 0, 327692, 1, 0, 393228, 1, 0, 458764, 1, 0, 524300, 1, 0, 13, 1, 0, 65549, 1, 0, 131085, 1, 0, 196621, 1, 0, 262157, 1, 0, 327693, 1, 0, 393229, 1, 0, 458765, 1, 0, 524301, 1, 0, 65535, 196608, 10, 131071, 196608, 10, 196607, 196608, 10, 262143, 196608, 10, 327679, 196608, 10, 393215, 196608, 10, 458751, 196608, 10, 524287, 196608, 10, 589823, 196608, 10)
 
+[node name="characterManager" parent="." instance=ExtResource("4_yv8hp")]
+
 [node name="zombies" type="Node2D" parent="."]
 
 [node name="zombie6" parent="zombies" instance=ExtResource("4_rofmh")]
@@ -2068,8 +2069,3 @@ position = Vector2(114, -1)
 
 [node name="zombie2" parent="zombies" instance=ExtResource("4_rofmh")]
 position = Vector2(154, -2)
-
-[node name="characterManager" parent="." instance=ExtResource("4_yv8hp")]
-
-[node name="player" parent="characterManager" instance=ExtResource("5_3uepc")]
-position = Vector2(72, 59)

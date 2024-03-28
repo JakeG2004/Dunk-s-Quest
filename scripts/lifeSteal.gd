@@ -20,4 +20,4 @@ func _process(_delta):
 	position.y += sin(ANGLE) * SPEED
 
 func init(newPos):
-	position = newPos
+	global_position = newPos

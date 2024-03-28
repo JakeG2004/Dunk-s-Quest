@@ -74,10 +74,3 @@ func damage(inDamage):
 func _on_body_entered(other):
 	if(other.is_in_group("enemy")):
 		damage(other.DAMAGE)
-	if(other.is_in_group("heal")):
-		print("heal")
-		
-func init(newPos):
-	print(newPos)
-	velocity = newPos
-	move_and_slide()
