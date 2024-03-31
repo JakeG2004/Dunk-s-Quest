@@ -6,11 +6,13 @@ extends Node2D
 
 @onready var bolt = preload("res://scenes/objects/weapons/lifeBolt.tscn")
 
-var DAMAGE = 1
-var KNOCKBACK = 3
+var DAMAGE = 3
+var KNOCKBACK = 5
 var ATTACK_RADIUS = 20
 
 var bolts = []
+
+var coolDown = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,6 +24,10 @@ func _process(_delta):
 		
 #lifesteal
 func primary(angle):
+	if(coolDown):
+		return
+	
+	coolDown = true
 	secondaryWeapon.hide()
 	secondaryWeapon.get_node("Area2D/CollisionShape2D").disabled = true
 	
@@ -35,6 +41,9 @@ func primary(angle):
 	get_parent().get_parent().add_child(tmpBolt)
 	
 	ap.play("primary")
+	
+	await get_tree().create_timer(.25).timeout
+	coolDown = false
 	
 #AoE
 func secondary(_angle):

@@ -1,7 +1,9 @@
-extends Sprite2D
+extends Area2D
 
 var SPEED = 5
 var ANGLE
+
+@export var HEALING = 1
 
 @onready var players = get_tree().get_nodes_in_group("player")
 var player

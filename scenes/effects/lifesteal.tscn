@@ -1,8 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://dox0tayievqjq"]
+[gd_scene load_steps=4 format=3 uid="uid://dox0tayievqjq"]
 
 [ext_resource type="Texture2D" uid="uid://rx64wqq2ll82" path="res://assets/effects/lifeparticle.png" id="1_c80me"]
 [ext_resource type="Script" path="res://scripts/lifeSteal.gd" id="2_o0786"]
 
-[node name="Lifesteal" type="Sprite2D" groups=["heal"]]
-texture = ExtResource("1_c80me")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8uwqs"]
+size = Vector2(6, 6)
+
+[node name="Lifesteal" type="Area2D" groups=["heal"]]
 script = ExtResource("2_o0786")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["heal"]]
+shape = SubResource("RectangleShape2D_8uwqs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_c80me")

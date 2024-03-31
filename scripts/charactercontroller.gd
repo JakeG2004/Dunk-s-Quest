@@ -12,6 +12,8 @@ var characterVariant = "male"
 
 @onready var weaponController = get_node("weaponController")
 
+@onready var charManager = get_parent()
+
 func _ready():
 	charSprite.flip_h = false
 
@@ -68,9 +70,14 @@ func update_anims(vert, horiz):
 	else:
 		playerAnim.play("player_idle")
 
-func damage(inDamage):
-	print("Damaged ", inDamage)
-
 func _on_body_entered(other):
 	if(other.is_in_group("enemy")):
-		damage(other.DAMAGE)
+		charManager.damage(other.DAMAGE)
+
+
+func _on_area_entered(other):
+	if(other.is_in_group("heal")):
+		charManager.heal(other.HEALING)
+		other.queue_free()
+	if(other.is_in_group("room")):
+		charManager.addRoom(other)

@@ -10,7 +10,7 @@ var DAMAGE = 3
 var KNOCKBACK = 1
 var TP_RADIUS = 40
 
-@export var COOLDOWNTIME = .25
+@export var COOLDOWNTIME = .35
 
 var coolDown = false
 
@@ -39,9 +39,9 @@ func primary(angle):
 	
 #AoE
 func secondary(angle):
-	print(global_position)
-	get_parent().position += Vector2(cos(angle) * TP_RADIUS, sin(angle) * TP_RADIUS)
-	print(global_position)
+	var newPos = get_parent().global_position + Vector2(cos(angle) * TP_RADIUS, sin(angle) * TP_RADIUS)
+	if(get_parent().get_parent().isTile(newPos)):
+		get_parent().position += Vector2(cos(angle) * TP_RADIUS, sin(angle) * TP_RADIUS)
 	
 func _on_area_2d_body_entered(other):
 	if(other.is_in_group("enemy")):

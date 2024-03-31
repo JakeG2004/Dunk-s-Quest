@@ -28,5 +28,5 @@ func _on_area_2d_body_entered(other):
 		
 		var tmpHit = HIT_EFFECT.instantiate()
 		tmpHit.init(global_position)
-		get_parent().add_child(tmpHit)
+		get_parent().call_deferred("add_child", tmpHit)
 		queue_free()

@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://cr34unq0hqq3g"]
+[gd_scene load_steps=13 format=3 uid="uid://cr34unq0hqq3g"]
 
 [ext_resource type="Script" path="res://scripts/charactercontroller.gd" id="1_34wqk"]
-[ext_resource type="Texture2D" uid="uid://ds4i7ryvg76su" path="res://assets/players/elf_girl.png" id="2_kqmsr"]
+[ext_resource type="Texture2D" uid="uid://b8s3r8074rn5v" path="res://assets/players/elf_boy.png" id="2_q6e3y"]
 [ext_resource type="PackedScene" uid="uid://brevp6emh8irh" path="res://scenes/objects/weapons/elfWeapon.tscn" id="3_w4uu2"]
 
 [sub_resource type="Animation" id="Animation_4kvsw"]
@@ -112,7 +112,10 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwhyp"]
-size = Vector2(16, 20)
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jf4jf"]
+size = Vector2(17.435, 20.915)
 
 [node name="elf" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
@@ -126,15 +129,23 @@ libraries = {
 autoplay = "player_idle"
 
 [node name="playerCollider" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_kwhyp")
 
 [node name="charSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -8)
-texture = ExtResource("2_kqmsr")
+texture = ExtResource("2_q6e3y")
 hframes = 9
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3.345, 3.345)
 
 [node name="weaponController" parent="." instance=ExtResource("3_w4uu2")]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_jf4jf")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

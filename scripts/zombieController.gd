@@ -3,11 +3,14 @@ extends CharacterBody2D
 @onready var ap = get_node("AnimationPlayer")
 @onready var sprite = get_node("Zombie")
 @onready var players = get_tree().get_nodes_in_group("player")
+@onready var healthBar = get_node("TextureProgressBar")
+
 var player
 
 var target = null
 
-var HEALTH = 10
+var MAX_HEALTH = 10
+var HEALTH = MAX_HEALTH
 
 @export var DAMAGE = 5
 @export var MAX_SPEED = 50  # Adjust this value as needed
@@ -27,13 +30,9 @@ func _physics_process(delta):
 	if target != null:
 		var direction = (player.global_position - global_position).normalized()
 		velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
-	else:
-		velocity = velocity.move_toward(Vector2.ZERO, ACCELERATION * delta)
-
+		
 	if position.distance_to(player.global_position) <= DETECT_RADIUS:
 		target = player
-	else:
-		target = null
 
 	move_and_slide()
 	update_sprite()
@@ -52,12 +51,16 @@ func update_sprite():
 		sprite.flip_h = false
 
 func hit(inDamage, knockback):
+	HEALTH -= inDamage
+	
+	healthBar.show()
+	healthBar.value = HEALTH * 100 / MAX_HEALTH
+	
 	velocity *= -knockback
 	var oldMod = sprite.modulate
 	sprite.modulate = Color.RED
 	await get_tree().create_timer(0.2).timeout
 	
-	HEALTH -= inDamage
 	if(HEALTH <= 0):
 		queue_free()
 		

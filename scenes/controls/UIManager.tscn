@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://75t2yyq5d8ac"]
+
+[ext_resource type="Texture2D" uid="uid://de7sk88d8q24u" path="res://assets/ui/LifeBarMiniUnder.png" id="1_bcm86"]
+[ext_resource type="Script" path="res://scripts/UIManager.gd" id="1_lfat5"]
+[ext_resource type="Texture2D" uid="uid://cacnvxc1nqr3x" path="res://assets/ui/LifeBarMiniProgress.png" id="1_tbyfa"]
+
+[node name="UIManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lfat5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 19.0
+offset_right = 111.0
+offset_bottom = 75.0
+scale = Vector2(13.6743, 13.6743)
+value = 50.0
+texture_under = ExtResource("1_bcm86")
+texture_progress = ExtResource("1_tbyfa")

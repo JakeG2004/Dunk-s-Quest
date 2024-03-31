@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i21yfmjvkwyx"
-path="res://.godot/imported/atlas_floor-16x16.png-c5a42eff373d7338432d2c33b6ea3d2f.ctex"
+uid="uid://cacnvxc1nqr3x"
+path="res://.godot/imported/LifeBarMiniProgress.png-533cc40d9576c3fb512be9e3c65bf88f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tilesets/atlas_floor-16x16.png"
-dest_files=["res://.godot/imported/atlas_floor-16x16.png-c5a42eff373d7338432d2c33b6ea3d2f.ctex"]
+source_file="res://assets/ui/LifeBarMiniProgress.png"
+dest_files=["res://.godot/imported/LifeBarMiniProgress.png-533cc40d9576c3fb512be9e3c65bf88f.ctex"]
 
 [params]
 
